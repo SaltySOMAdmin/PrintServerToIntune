@@ -8,7 +8,7 @@ PrintServerToIntune is a tool that exports printers from a Windows print server 
 - Download the release from the right side of the screen
 - Extract the file contents and run PackageMyPrinters.ps1.
 - Select your printers from the gridview, click OK, and follow the rest of the prompts.
-- For complete instructions and details, see the blog post - 
+- For complete instructions and details, see the blog post - https://smbtothecloud.com/printservertointune-migrate-printers-to-intune-as-tcp-ip-connections/
 
 # Limitations
 - Only works with TCP/IP port printers
