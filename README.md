@@ -1,8 +1,10 @@
+<img width="509" height="183" alt="PrintServerToIntune" src="https://github.com/user-attachments/assets/57eb7103-36b3-45f7-bdc3-d915d7a76f6e" />
+
 # PrintServerToIntune
-PrintServerToIntune is a tool that exports printers from a Windows print server as Intune Win32 Apps and uploads them to your Intune tenant as TCP/IP printers for your Entra-Joined or Hybrid-Joined workstations.
+PrintServerToIntune is a tool that exports printers from a Windows print server (or workstation) as Intune Win32 Apps and uploads them to your Intune tenant as TCP/IP printers for your Entra-Joined or Hybrid-Joined workstations.
 
 # Instructions
-- *This must be ran on your print server or the workstation where the printers are connected
+- *This must be run on your print server or the workstation where the printers are connected
 - Download the release from the right side of the screen
 - Extract the file contents and run PackageMyPrinters.ps1.
 - Select your printers from the gridview, click OK, and follow the rest of the prompts.
