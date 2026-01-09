@@ -1,3 +1,4 @@
+Set-Location -Path $PSScriptRoot
 #Log Dir
 $LogDir = ".\Logs"
 New-Item -ItemType Directory -Path $LogDir -Force | Out-Null
@@ -15,6 +16,7 @@ if (-not $SelectedPrinters) {
   return
 }
 
+# Get default B&W Flag
 $defaultbw = Read-Host "**Do you want to default printers to black and white? (Type Y or N and press enter)"
 $defaultbw = $defaultbw.Trim().ToUpper()
 	
@@ -96,6 +98,7 @@ Copy-Item -Path "$DriverPath\*" -Destination $DriverDir -Recurse
 $PkgDir      = ".\ExportedPrinters\$PrinterName"
 $InstallPath = Join-Path $PkgDir 'Install.ps1'
 New-Item -ItemType Directory -Path $PkgDir -Force | Out-Null   # in case folder wasn't created yet
+Copy-Item -path "$PSScriptRoot\printericon.jpg" -Destination $PkgDir
 If ($defaultbw.Trim().ToUpper() -eq "Y") {
 $install = @"
 # Auto-generated installer for: $PrinterName
