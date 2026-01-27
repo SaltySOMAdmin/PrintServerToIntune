@@ -19,6 +19,10 @@ if (-not $SelectedPrinters) {
 # Get default B&W Flag
 $defaultbw = Read-Host "**Do you want to default printers to black and white? (Type Y or N and press enter)"
 $defaultbw = $defaultbw.Trim().ToUpper()
+
+# Get default Duplex Flag
+$defaultDP = Read-Host "**Do you want to default printers to duplex printing? (Type Y or N and press enter)"
+$defaultDP = $defaultDP.Trim().ToUpper()
 	
 ForEach ($selectedprinter in $selectedprinters) {
 If ($selectedprinter.ShareName) {
@@ -94,12 +98,16 @@ Else {
 $DriverDir = New-Item -Path .\ExportedPrinters\$PrinterName\driver -ItemType Directory
 Copy-Item -Path "$DriverPath\*" -Destination $DriverDir -Recurse
 
+#######################################################
+
 #Generate Install script for the printer
 $PkgDir      = ".\ExportedPrinters\$PrinterName"
 $InstallPath = Join-Path $PkgDir 'Install.ps1'
 New-Item -ItemType Directory -Path $PkgDir -Force | Out-Null   # in case folder wasn't created yet
 Copy-Item -path "$PSScriptRoot\printericon.jpg" -Destination $PkgDir
-If ($defaultbw.Trim().ToUpper() -eq "Y") {
+
+# If default BW  Y & Duplex Y
+If ($defaultbw.Trim().ToUpper() -eq "Y" -and $defaultDP.Trim().ToUpper() -eq "Y") {
 $install = @"
 # Auto-generated installer for: $PrinterName
 
@@ -131,11 +139,14 @@ Write-Warning "Printer Driver not installed"
 }
 
 Set-PrintConfiguration -PrinterName `$PrinterName -Color `$false
+Set-PrintConfiguration -PrinterName `$PrinterName -DuplexingMode TwoSidedLongEdge
 
 SLEEP 30
 "@
 }
-If ($defaultbw.Trim().ToUpper() -ne "Y") {
+
+# If Default BW not Y and Duplex not Y 
+If ($defaultbw.Trim().ToUpper() -ne "Y" -and $defaultDP.Trim().ToUpper() -ne "Y") {
 $install = @"
 # Auto-generated installer for: $PrinterName
 
@@ -165,6 +176,87 @@ else
 {
 Write-Warning "Printer Driver not installed"
 }
+
+Set-PrintConfiguration -PrinterName `$PrinterName -Color `$true
+Set-PrintConfiguration -PrinterName `$PrinterName -DuplexingMode OneSided
+
+SLEEP 30
+"@
+}
+
+# If Default BW Y and Duplex not Y 
+If ($defaultbw.Trim().ToUpper() -eq "Y" -and $defaultDP.Trim().ToUpper() -ne "Y") {
+$install = @"
+# Auto-generated installer for: $PrinterName
+
+`$DriverINF   = '$DriverINF'
+`$DriverName  = '$DriverName'
+`$PortName    = '$PortName'
+`$PrinterIP   = '$PrinterIP'
+`$PrinterName = '$PrinterName'
+
+pnputil.exe /add-driver ".\Driver\`$DriverINF" /install
+Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
+
+`$checkPortExists = Get-Printerport -Name `$portname -ErrorAction SilentlyContinue
+
+if (-not `$checkPortExists) 
+{
+Add-PrinterPort -name `$portName -PrinterHostAddress `$PrinterIP
+}
+
+`$printDriverExists = Get-PrinterDriver -name `$DriverName -ErrorAction SilentlyContinue
+
+if (`$printDriverExists)
+{
+Add-Printer -Name `$PrinterName -PortName `$portName -DriverName `$DriverName
+}
+else
+{
+Write-Warning "Printer Driver not installed"
+}
+
+Set-PrintConfiguration -PrinterName `$PrinterName -Color `$false
+Set-PrintConfiguration -PrinterName `$PrinterName -DuplexingMode OneSided
+
+SLEEP 30
+"@
+}
+
+# If Default BW Y and Duplex not Y 
+If ($defaultbw.Trim().ToUpper() -ne "Y" -and $defaultDP.Trim().ToUpper() -eq "Y") {
+$install = @"
+# Auto-generated installer for: $PrinterName
+
+`$DriverINF   = '$DriverINF'
+`$DriverName  = '$DriverName'
+`$PortName    = '$PortName'
+`$PrinterIP   = '$PrinterIP'
+`$PrinterName = '$PrinterName'
+
+pnputil.exe /add-driver ".\Driver\`$DriverINF" /install
+Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
+
+`$checkPortExists = Get-Printerport -Name `$portname -ErrorAction SilentlyContinue
+
+if (-not `$checkPortExists) 
+{
+Add-PrinterPort -name `$portName -PrinterHostAddress `$PrinterIP
+}
+
+`$printDriverExists = Get-PrinterDriver -name `$DriverName -ErrorAction SilentlyContinue
+
+if (`$printDriverExists)
+{
+Add-Printer -Name `$PrinterName -PortName `$portName -DriverName `$DriverName
+}
+else
+{
+Write-Warning "Printer Driver not installed"
+}
+
+Set-PrintConfiguration -PrinterName `$PrinterName -Color `$true
+Set-PrintConfiguration -PrinterName `$PrinterName -DuplexingMode TwoSidedLongEdge
 
 SLEEP 30
 "@
@@ -243,7 +335,8 @@ Start-Sleep 1
 
 
 #Package Printer Files for Win32 App Deployment
-$IntuneWinAppUtil = ".\IntuneWinAppUtil.exe"
+#$IntuneWinAppUtil = ".\IntuneWinAppUtil.exe"
+$IntuneWinAppUtil = $dest
 $SourcePath = ".\ExportedPrinters"
 $PrinterFolders = Get-Childitem $SourcePath -Directory
 
