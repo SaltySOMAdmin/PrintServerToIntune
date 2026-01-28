@@ -1,5 +1,10 @@
 <img width="509" height="183" alt="PrintServerToIntune" src="https://github.com/user-attachments/assets/57eb7103-36b3-45f7-bdc3-d915d7a76f6e" />
 
+# My Fork:
+- Added toggle to default printers to B&W.
+- Added toggle to default to simplex (duplex is default typically).
+- Added line to unblock downloaded Intune packager.
+
 # PrintServerToIntune
 PrintServerToIntune is a tool that exports printers from a Windows print server (or workstation) as Intune Win32 Apps and uploads them to your Intune tenant as TCP/IP printers for your Entra-Joined or Hybrid-Joined workstations.
 
