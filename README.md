@@ -3,6 +3,7 @@
 # My Fork:
 - Added toggle to default printers to B&W.
 - Added toggle to default to simplex (duplex is default typically).
+- Added separate script for ARM drivers.
 - Added line to unblock downloaded Intune packager.
 - Copies printer icon into printer directories to speed up manual importing.
 
