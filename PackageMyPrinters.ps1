@@ -101,7 +101,7 @@ Copy-Item -Path "$DriverPath\*" -Destination $DriverDir -Recurse
 #######################################################
 
 #Generate Install script for the printer
-$PkgDir      = ".\ExportedPrinters\$PrinterName"
+$PkgDir      = "$psscriptroot\ExportedPrinters\$PrinterName"
 $InstallPath = Join-Path $PkgDir 'Install.ps1'
 New-Item -ItemType Directory -Path $PkgDir -Force | Out-Null   # in case folder wasn't created yet
 Copy-Item -path "$PSScriptRoot\printericon.jpg" -Destination $PkgDir
@@ -117,7 +117,7 @@ $install = @"
 `$PrinterIP   = '$PrinterIP'
 `$PrinterName = '$PrinterName'
 
-pnputil.exe /add-driver ".\Driver\`$DriverINF" /install
+pnputil.exe /add-driver "`$psscriptroot\Driver\`$DriverINF" /install
 Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
 
 `$checkPortExists = Get-Printerport -Name `$portname -ErrorAction SilentlyContinue
@@ -156,7 +156,7 @@ $install = @"
 `$PrinterIP   = '$PrinterIP'
 `$PrinterName = '$PrinterName'
 
-pnputil.exe /add-driver ".\Driver\`$DriverINF" /install
+pnputil.exe /add-driver "`$psscriptroot\Driver\`$DriverINF" /install
 Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
 
 `$checkPortExists = Get-Printerport -Name `$portname -ErrorAction SilentlyContinue
@@ -195,7 +195,7 @@ $install = @"
 `$PrinterIP   = '$PrinterIP'
 `$PrinterName = '$PrinterName'
 
-pnputil.exe /add-driver ".\Driver\`$DriverINF" /install
+pnputil.exe /add-driver "`$psscriptroot\Driver\`$DriverINF" /install
 Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
 
 `$checkPortExists = Get-Printerport -Name `$portname -ErrorAction SilentlyContinue
@@ -234,7 +234,7 @@ $install = @"
 `$PrinterIP   = '$PrinterIP'
 `$PrinterName = '$PrinterName'
 
-pnputil.exe /add-driver ".\Driver\`$DriverINF" /install
+pnputil.exe /add-driver "`$psscriptroot\Driver\`$DriverINF" /install
 Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
 
 `$checkPortExists = Get-Printerport -Name `$portname -ErrorAction SilentlyContinue
