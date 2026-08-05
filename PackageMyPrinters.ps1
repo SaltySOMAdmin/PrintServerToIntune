@@ -1,6 +1,6 @@
 Set-Location -Path $PSScriptRoot
 #Log Dir
-$LogDir = ".\Logs"
+$LogDir = "$PSScriptRoot\Logs"
 New-Item -ItemType Directory -Path $LogDir -Force | Out-Null
 $LogPath = Join-Path $LogDir "SkippedPrinters.csv"
 
@@ -337,7 +337,7 @@ Start-Sleep 1
 #Package Printer Files for Win32 App Deployment
 #$IntuneWinAppUtil = ".\IntuneWinAppUtil.exe"
 $IntuneWinAppUtil = $dest
-$SourcePath = ".\ExportedPrinters"
+$SourcePath = "$PSScriptRoot\ExportedPrinters"
 $PrinterFolders = Get-Childitem $SourcePath -Directory
 
 foreach ($PrinterFolder in $PrinterFolders) {

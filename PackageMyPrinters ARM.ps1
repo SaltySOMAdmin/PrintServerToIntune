@@ -1,6 +1,6 @@
 Set-Location -Path $PSScriptRoot
 #Log Dir
-$LogDir = ".\Logs"
+$LogDir = "$PSScriptRoot\Logs"
 New-Item -ItemType Directory -Path $LogDir -Force | Out-Null
 $LogPath = Join-Path $LogDir "SkippedPrinters.csv"
 
