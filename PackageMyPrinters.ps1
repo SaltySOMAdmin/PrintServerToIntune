@@ -141,7 +141,7 @@ Write-Warning "Printer Driver not installed"
 Set-PrintConfiguration -PrinterName `$PrinterName -Color `$false
 Set-PrintConfiguration -PrinterName `$PrinterName -DuplexingMode TwoSidedLongEdge
 
-SLEEP 30
+SLEEP 20
 "@
 }
 
@@ -180,7 +180,7 @@ Write-Warning "Printer Driver not installed"
 Set-PrintConfiguration -PrinterName `$PrinterName -Color `$true
 Set-PrintConfiguration -PrinterName `$PrinterName -DuplexingMode OneSided
 
-SLEEP 30
+SLEEP 20
 "@
 }
 
@@ -219,7 +219,7 @@ Write-Warning "Printer Driver not installed"
 Set-PrintConfiguration -PrinterName `$PrinterName -Color `$false
 Set-PrintConfiguration -PrinterName `$PrinterName -DuplexingMode OneSided
 
-SLEEP 30
+SLEEP 20
 "@
 }
 
@@ -258,7 +258,7 @@ Write-Warning "Printer Driver not installed"
 Set-PrintConfiguration -PrinterName `$PrinterName -Color `$true
 Set-PrintConfiguration -PrinterName `$PrinterName -DuplexingMode TwoSidedLongEdge
 
-SLEEP 30
+SLEEP 20
 "@
 }
 
