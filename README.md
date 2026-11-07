@@ -3,7 +3,8 @@
 # My Fork:
 - Added toggle to default printers to B&W.
 - Added toggle to default to simplex (duplex is default typically).
-- Added separate script for ARM drivers.
+- Added support for ARM drivers
+- Added lines to trust driver certificate.
 - Added line to unblock downloaded Intune packager.
 - Copies printer icon into printer directories to speed up manual importing.
 
@@ -19,5 +20,5 @@ PrintServerToIntune is a tool that exports printers from a Windows print server 
 
 # Limitations
 - Only works with TCP/IP port printers
-- Only the 64-bit drivers are exported
+- Only the 64-bit or ARM drivers are exported
 - Printers with drivers not containing a valid INFPath pointing to c:\windows\system32\driverstore will not be exported
