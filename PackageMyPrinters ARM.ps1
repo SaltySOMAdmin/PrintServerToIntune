@@ -117,6 +117,19 @@ $install = @"
 `$PrinterIP   = '$PrinterIP'
 `$PrinterName = '$PrinterName'
 
+`$CatFile = Get-ChildItem "`$psscriptroot\Driver" -Filter "*.cat" | Select-Object -First 1
+Write-Output "Get Cat file - `$CatFile"
+if (`$CatFile) {
+    `$sig = Get-AuthenticodeSignature `$CatFile.FullName
+	Write-Output "Signature `$sig"
+    if (`$sig.SignerCertificate) {
+        `$store = [System.Security.Cryptography.X509Certificates.X509Store]::new("TrustedPublisher", "LocalMachine")
+        `$store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite)
+        `$store.Add(`$sig.SignerCertificate)
+        `$store.Close()
+    }
+}
+
 pnputil.exe /add-driver "`$psscriptroot\Driver\`$DriverINF" /install
 Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
 
@@ -155,6 +168,19 @@ $install = @"
 `$PortName    = '$PortName'
 `$PrinterIP   = '$PrinterIP'
 `$PrinterName = '$PrinterName'
+
+`$CatFile = Get-ChildItem "`$psscriptroot\Driver" -Filter "*.cat" | Select-Object -First 1
+Write-Output "Get Cat file - `$CatFile"
+if (`$CatFile) {
+    `$sig = Get-AuthenticodeSignature `$CatFile.FullName
+	Write-Output "Signature `$sig"
+    if (`$sig.SignerCertificate) {
+        `$store = [System.Security.Cryptography.X509Certificates.X509Store]::new("TrustedPublisher", "LocalMachine")
+        `$store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite)
+        `$store.Add(`$sig.SignerCertificate)
+        `$store.Close()
+    }
+}
 
 pnputil.exe /add-driver "`$psscriptroot\Driver\`$DriverINF" /install
 Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
@@ -195,6 +221,19 @@ $install = @"
 `$PrinterIP   = '$PrinterIP'
 `$PrinterName = '$PrinterName'
 
+`$CatFile = Get-ChildItem "`$psscriptroot\Driver" -Filter "*.cat" | Select-Object -First 1
+Write-Output "Get Cat file - `$CatFile"
+if (`$CatFile) {
+    `$sig = Get-AuthenticodeSignature `$CatFile.FullName
+	Write-Output "Signature `$sig"
+    if (`$sig.SignerCertificate) {
+        `$store = [System.Security.Cryptography.X509Certificates.X509Store]::new("TrustedPublisher", "LocalMachine")
+        `$store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite)
+        `$store.Add(`$sig.SignerCertificate)
+        `$store.Close()
+    }
+}
+
 pnputil.exe /add-driver "`$psscriptroot\Driver\`$DriverINF" /install
 Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
 
@@ -233,6 +272,19 @@ $install = @"
 `$PortName    = '$PortName'
 `$PrinterIP   = '$PrinterIP'
 `$PrinterName = '$PrinterName'
+
+`$CatFile = Get-ChildItem "`$psscriptroot\Driver" -Filter "*.cat" | Select-Object -First 1
+Write-Output "Get Cat file - `$CatFile"
+if (`$CatFile) {
+    `$sig = Get-AuthenticodeSignature `$CatFile.FullName
+	Write-Output "Signature `$sig"
+    if (`$sig.SignerCertificate) {
+        `$store = [System.Security.Cryptography.X509Certificates.X509Store]::new("TrustedPublisher", "LocalMachine")
+        `$store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite)
+        `$store.Add(`$sig.SignerCertificate)
+        `$store.Close()
+    }
+}
 
 pnputil.exe /add-driver "`$psscriptroot\Driver\`$DriverINF" /install
 Add-PrinterDriver -Name `$drivername -ErrorAction SilentlyContinue
